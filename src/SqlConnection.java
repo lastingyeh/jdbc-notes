@@ -415,12 +415,12 @@ public class SqlConnection {
 			prepStmt.close();
 		}
 
-		if (myConn != null) {
-			myConn.close();
-		}
-
 		if (callStmt != null) {
 			callStmt.close();
+		}
+
+		if (myConn != null) {
+			myConn.close();
 		}
 	}
 }

@@ -1,27 +1,63 @@
 ### Database Connection For JDBC
 
-1. create Connection (myConn)
+#### Create Database Connection
+
+1. download driver 
+
+* [MsSQL](https://docs.microsoft.com/zh-tw/sql/connect/jdbc/using-the-jdbc-driver?view=sql-server-2017)
+
+* [MySQL](https://dev.mysql.com/downloads/connector/j/5.1.html)
+
+2. set connectionString
+
+* MsSQL: jdbc:sqlserver://localhost:port;database=db
+
+* MySQL: jdbc:mysql://localhost:3306/demo?useSSL=true
+
+3. create Connection instance
+
     ```java
-    myConn = DriverManager.getConnection(connectUrl, user, pwd);
+    Connection myConn = DriverManager.getConnection(connectionString, user, pwd);
     ```
-2. create PreparedStatement (prepStmt)
+
+#### CreateStatement
+
+1. Get Statement 
     ```java
-    prepStmt = myConn.prepareStatement(sql);
+    myStmt = myConn.createStatement();
     ```
-3. sql-command use ? replace and set index as above example
+2. Exec query by statement
+    ```java
+    ResultSet myResult = myStmt.executeQuery(sql);
+    ```
+3. Insert || Update || Delete
+    ```java
+    int affectedRows = myStmt.executeUpdate(sql);
+    ```
+#### PreparedStatement
+
+1. Get PreparedStatement
+    ```java
+    PreparedStatement prepStmt = myConn.prepareStatement(sql);
+    ```
+2. Set SQL params ex. sql = "SELECT * FROM employees WHERE salary > ? AND department = ?";
+
     ```java
     prepStmt.setDouble(1, 80000);
+
     prepStmt.setString(2, "Legal");
     ```
-4. as query to get ResultSet (myResult)
+3. as query to get ResultSet (myResult)
     ```java
-    myResult = prepStmt.executeQuery();
+    ResultSet myResult = prepStmt.executeQuery();
     ```
-5. as insert || update || delete int (affectedRows)
+4. as insert || update || delete int (affectedRows)
     ```java
-    affectedRows = prepStmt.executeUpdate();
+    int affectedRows = prepStmt.executeUpdate();
     ```
-6. use myResult.next() to print results (metaData)
+#### Get ResultSet
+
+1. use myResult.next() to print results (metaData)
 
     ```java
     ResultSetMetaData metaData = myResult.getMetaData();
