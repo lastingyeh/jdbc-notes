@@ -16,66 +16,58 @@
 
 3. create Connection instance
 
-    ```java
-    Connection myConn = DriverManager.getConnection(connectionString, user, pwd);
-    ```
+```java
+Connection myConn = DriverManager.getConnection(connectionString, user, pwd);
+```
 
-#### CreateStatement
+CreateStatement
 
-1. Get Statement 
-    ```java
-    myStmt = myConn.createStatement();
-    ```
-2. Exec query by statement
-    ```java
-    ResultSet myResult = myStmt.executeQuery(sql);
-    ```
-3. Insert || Update || Delete
-    ```java
-    int affectedRows = myStmt.executeUpdate(sql);
-    ```
-#### PreparedStatement
+```java
+Statement myStmt = myConn.createStatement();
 
-1. Get PreparedStatement
-    ```java
-    PreparedStatement prepStmt = myConn.prepareStatement(sql);
-    ```
-2. Set SQL params ex. sql = "SELECT * FROM employees WHERE salary > ? AND department = ?";
+// Select Command
+ResultSet myResult = myStmt.executeQuery(sql);
 
-    ```java
-    prepStmt.setDouble(1, 80000);
+// Insert | Update | Delete
+int affectedRows = myStmt.executeUpdate(sql);
+```
+PreparedStatement
 
-    prepStmt.setString(2, "Legal");
-    ```
-3. as query to get ResultSet (myResult)
-    ```java
-    ResultSet myResult = prepStmt.executeQuery();
-    ```
-4. as insert || update || delete int (affectedRows)
-    ```java
-    int affectedRows = prepStmt.executeUpdate();
-    ```
-#### Get ResultSet
+```java
+PreparedStatement prepStmt = myConn.prepareStatement(sql);
 
-1. use myResult.next() to print results (metaData)
+// Set SQL params 
+// String sql = "SELECT * FROM employees WHERE salary > ? AND department = ?";
 
-    ```java
-    ResultSetMetaData metaData = myResult.getMetaData();
+prepStmt.setDouble(1, 80000);
+prepStmt.setString(2, "Legal");
 
-    int columnCount = metaData.getColumnCount();
+// Select Command
+ResultSet myResult = prepStmt.executeQuery();
 
-    while (myResult.next()) {
+// Insert | Update | Delete
+int affectedRows = prepStmt.executeUpdate();
+```
 
-        String printValue = "";
+ResultSet
 
-        for (int i = 1; i <= columnCount; i++) {
-            printValue += myResult.getString(i) + ", ";
-        }
+```java
+ResultSetMetaData metaData = myResult.getMetaData();
 
-        System.out.println(printValue + "\n");
+int columnCount = metaData.getColumnCount();
+
+while (myResult.next()) {
+
+    String printValue = "";
+
+    for (int i = 1; i <= columnCount; i++) {
+        printValue += myResult.getString(i) + ", ";
     }
-    ```
 
-### Reference And Thanks for
+    System.out.println(printValue + "\n");
+}
+```
+
+### Reference
 
 [Udemy Course - Java Database Connection: JDBC and MySQL](https://www.udemy.com/how-to-connect-java-jdbc-to-mysql/)
