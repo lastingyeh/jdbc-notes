@@ -1,26 +1,26 @@
-### Database Connection For JDBC
+## Database Connection For JDBC
 
-#### Create Database Connection
+### Create Database Connection
 
-1. download driver 
+> Download Driver
 
 * [MsSQL](https://docs.microsoft.com/zh-tw/sql/connect/jdbc/using-the-jdbc-driver?view=sql-server-2017)
 
 * [MySQL](https://dev.mysql.com/downloads/connector/j/5.1.html)
 
-2. set connectionString
+> ConnectionString
 
 * MsSQL: jdbc:sqlserver://localhost:port;database=db
 
 * MySQL: jdbc:mysql://localhost:3306/demo?useSSL=true
 
-3. create Connection instance
+> Connection Instance
 
 ```java
 Connection myConn = DriverManager.getConnection(connectionString, user, pwd);
 ```
 
-CreateStatement
+### CreateStatement
 
 ```java
 Statement myStmt = myConn.createStatement();
@@ -31,7 +31,7 @@ ResultSet myResult = myStmt.executeQuery(sql);
 // Insert | Update | Delete
 int affectedRows = myStmt.executeUpdate(sql);
 ```
-PreparedStatement
+### PreparedStatement
 
 ```java
 PreparedStatement prepStmt = myConn.prepareStatement(sql);
@@ -49,7 +49,7 @@ ResultSet myResult = prepStmt.executeQuery();
 int affectedRows = prepStmt.executeUpdate();
 ```
 
-ResultSet
+### ResultSet
 
 ```java
 ResultSetMetaData metaData = myResult.getMetaData();
